@@ -1,0 +1,710 @@
+{
+  "version": "SNMP_MULTI_20260930",
+  "server_time": "2026-09-30T14:13:08.375827+00:00",
+  "interval": 7.0,
+  "workers": 8,
+  "log_warning": "",
+  "devices": [
+    {
+      "id": "cd487bb9bdf540529dbaf6c3babadd2a",
+      "name": "UPS 1",
+      "host": "192.168.2.1",
+      "expected_mac": "",
+      "polling": false,
+      "paused": false,
+      "snmp_online": true,
+      "complete": true,
+      "ping_ok": true,
+      "ping_ms": 3,
+      "rows": [
+        {
+          "leaf": 1,
+          "oid": "1.3.6.1.4.1.12345.1.23.1",
+          "label": "Device MAC",
+          "type": "STRING",
+          "raw": "02E8265CDECC",
+          "value": "02E8265CDECC",
+          "unit": ""
+        },
+        {
+          "leaf": 2,
+          "oid": "1.3.6.1.4.1.12345.1.23.2",
+          "label": "Output Voltage",
+          "type": "Gauge32",
+          "raw": 220,
+          "value": "220 V",
+          "unit": "V"
+        },
+        {
+          "leaf": 3,
+          "oid": "1.3.6.1.4.1.12345.1.23.3",
+          "label": "Output Frequency",
+          "type": "Gauge32",
+          "raw": 500,
+          "value": "50.0 Hz",
+          "unit": "Hz"
+        },
+        {
+          "leaf": 4,
+          "oid": "1.3.6.1.4.1.12345.1.23.4",
+          "label": "Output Current",
+          "type": "Gauge32",
+          "raw": 1,
+          "value": "0.1 A",
+          "unit": "A"
+        },
+        {
+          "leaf": 5,
+          "oid": "1.3.6.1.4.1.12345.1.23.5",
+          "label": "Output Power",
+          "type": "Gauge32",
+          "raw": 22,
+          "value": "22 W",
+          "unit": "W"
+        },
+        {
+          "leaf": 6,
+          "oid": "1.3.6.1.4.1.12345.1.23.6",
+          "label": "Input Voltage",
+          "type": "Gauge32",
+          "raw": 0,
+          "value": "0 V",
+          "unit": "V"
+        },
+        {
+          "leaf": 7,
+          "oid": "1.3.6.1.4.1.12345.1.23.7",
+          "label": "Input Frequency",
+          "type": "Gauge32",
+          "raw": 0,
+          "value": "0.0 Hz",
+          "unit": "Hz"
+        },
+        {
+          "leaf": 8,
+          "oid": "1.3.6.1.4.1.12345.1.23.8",
+          "label": "Battery Voltage",
+          "type": "Gauge32",
+          "raw": 132,
+          "value": "13.2 V",
+          "unit": "V"
+        },
+        {
+          "leaf": 9,
+          "oid": "1.3.6.1.4.1.12345.1.23.9",
+          "label": "Battery Charging Current",
+          "type": "Gauge32",
+          "raw": 0,
+          "value": "0.0 A",
+          "unit": "A"
+        },
+        {
+          "leaf": 10,
+          "oid": "1.3.6.1.4.1.12345.1.23.10",
+          "label": "Solar Voltage",
+          "type": "Gauge32",
+          "raw": 0,
+          "value": "0.0 V",
+          "unit": "V"
+        },
+        {
+          "leaf": 11,
+          "oid": "1.3.6.1.4.1.12345.1.23.11",
+          "label": "Solar Current",
+          "type": "Gauge32",
+          "raw": 0,
+          "value": "0.0 A",
+          "unit": "A"
+        },
+        {
+          "leaf": 12,
+          "oid": "1.3.6.1.4.1.12345.1.23.12",
+          "label": "Solar Power",
+          "type": "Gauge32",
+          "raw": 0,
+          "value": "0 W",
+          "unit": "W"
+        },
+        {
+          "leaf": 13,
+          "oid": "1.3.6.1.4.1.12345.1.23.13",
+          "label": "Output Energy",
+          "type": "Counter32",
+          "raw": 0,
+          "value": "0 Wh",
+          "unit": "Wh"
+        },
+        {
+          "leaf": 14,
+          "oid": "1.3.6.1.4.1.12345.1.23.14",
+          "label": "Solar Energy",
+          "type": "Counter32",
+          "raw": 0,
+          "value": "0 Wh",
+          "unit": "Wh"
+        },
+        {
+          "leaf": 15,
+          "oid": "1.3.6.1.4.1.12345.1.23.15",
+          "label": "Flash Writes",
+          "type": "Counter32",
+          "raw": 0,
+          "value": "0",
+          "unit": ""
+        },
+        {
+          "leaf": 16,
+          "oid": "1.3.6.1.4.1.12345.1.23.16",
+          "label": "Uptime",
+          "type": "Timeticks",
+          "raw": 0,
+          "value": "0 min",
+          "unit": "min"
+        },
+        {
+          "leaf": 17,
+          "oid": "1.3.6.1.4.1.12345.1.23.17",
+          "label": "Temperature",
+          "type": "Gauge32",
+          "raw": 258,
+          "value": "25.8 C",
+          "unit": "C"
+        },
+        {
+          "leaf": 18,
+          "oid": "1.3.6.1.4.1.12345.1.23.18",
+          "label": "Inverter Status Fault",
+          "type": "INTEGER",
+          "raw": 16,
+          "value": "16",
+          "unit": ""
+        },
+        {
+          "leaf": 19,
+          "oid": "1.3.6.1.4.1.12345.1.23.19",
+          "label": "PFC Charger Status Fault",
+          "type": "INTEGER",
+          "raw": 16,
+          "value": "16",
+          "unit": ""
+        },
+        {
+          "leaf": 20,
+          "oid": "1.3.6.1.4.1.12345.1.23.20",
+          "label": "MPPT Charger Status Fault",
+          "type": "INTEGER",
+          "raw": 20,
+          "value": "20",
+          "unit": ""
+        },
+        {
+          "leaf": 21,
+          "oid": "1.3.6.1.4.1.12345.1.23.21",
+          "label": "Mains Grid Status Fault",
+          "type": "INTEGER",
+          "raw": 26,
+          "value": "26",
+          "unit": ""
+        },
+        {
+          "leaf": 22,
+          "oid": "1.3.6.1.4.1.12345.1.23.22",
+          "label": "Battery Status Fault",
+          "type": "INTEGER",
+          "raw": 4,
+          "value": "4",
+          "unit": ""
+        },
+        {
+          "leaf": 23,
+          "oid": "1.3.6.1.4.1.12345.1.23.23",
+          "label": "Full Packet",
+          "type": "STRING",
+          "raw": "$02E8265CDECC,220.0,50.0,0.1,22.0,0.0,0.0,13.2,0.0,0.0,0.0,0.0,0,0,0,0,25.8,16,16,20,26,4#",
+          "value": "$02E8265CDECC,220.0,50.0,0.1,22.0,0.0,0.0,13.2,0.0,0.0,0.0,0.0,0,0,0,0,25.8,16,16,20,26,4#",
+          "unit": ""
+        }
+      ],
+      "values_stale": false,
+      "diagnostics": {
+        "ok": true,
+        "mac": "02:E8:26:5C:DE:CC",
+        "packet": "$02E8265CDECC,220.0,50.0,0.1,22.0,0.0,0.0,13.2,0.0,0.0,0.0,0.0,0,0,0,0,25.8,16,16,20,26,4#",
+        "data": {
+          "output_voltage": 220,
+          "output_frequency": 50.0,
+          "output_current": 0.1,
+          "output_power": 22,
+          "input_voltage": 0,
+          "input_frequency": 0.0,
+          "battery_voltage": 13.2,
+          "battery_charging_current": 0.0,
+          "solar_voltage": 0.0,
+          "solar_current": 0.0,
+          "solar_power": 0,
+          "output_energy": 0,
+          "solar_energy": 0,
+          "flash_writes": 0,
+          "uptime_minutes": 0,
+          "temperature": 25.8,
+          "inverter_status_fault": 16,
+          "pfc_charger_status_fault": 16,
+          "mppt_charger_status_fault": 20,
+          "mains_grid_status_fault": 26,
+          "battery_status_fault": 4
+        },
+        "device_uptime_seconds": 786,
+        "free_heap_bytes": 42816,
+        "firmware": "SNMP_SITE_RECOVERY_20260930_R2",
+        "reset_reason": "External System",
+        "ethernet_ip": "192.168.2.1",
+        "ethernet_mask": "255.255.255.0",
+        "ethernet_gateway": "192.168.2.10",
+        "network_recoveries": 1,
+        "snmp_requests": 314,
+        "snmp_rejected": 0,
+        "arp_address_conflicts": 0,
+        "udp_send_timeouts": 0,
+        "address_announcements": 4,
+        "link_transitions": 3,
+        "enc_rx_overflows": 2,
+        "enc_tx_failures": 0,
+        "last_network_fault": 6,
+        "max_network_service_gap_ms": 1198,
+        "rs485_consecutive_failures": 0,
+        "rs485_last_good_age_seconds": 3,
+        "ethernet_link": "up",
+        "snmp_udp_ready": true
+      },
+      "diagnostics_stale": false,
+      "inverter_status": "Fresh",
+      "data_fresh": true,
+      "error": "",
+      "http_error": "",
+      "mac": "02E8265CDECC",
+      "polls": 57,
+      "successes": 57,
+      "failures": 0,
+      "consecutive_failures": 0,
+      "resets_observed": 0,
+      "history": [
+        {
+          "at": "2026-09-30T14:05:45.914572+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:05:53.412117+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:01.372238+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:08.967249+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:16.824797+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Cache \u2014 age unverified"
+        },
+        {
+          "at": "2026-09-30T14:06:26.157432+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:33.875927+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:41.596306+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:49.559681+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:06:57.140866+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:05.046137+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:12.896570+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:20.709114+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:28.282682+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:35.949485+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:43.755672+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:51.318838+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:07:59.218701+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:07.097655+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:14.823462+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:22.655144+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:30.255057+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 78,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:37.951411+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:45.668162+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:08:53.191876+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:00.975967+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:08.626516+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:16.259995+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:24.064575+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:31.696671+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:39.362322+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:47.158092+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:09:55.148662+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:02.732902+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:10.605635+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:18.383332+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:26.118736+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:33.802743+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:41.403781+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:49.031817+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:10:56.655140+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:04.254893+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:11.940178+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 78,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:20.217616+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:28.158725+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:35.817641+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:43.326574+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 47,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:51.160673+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:11:58.828498+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:06.438566+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:14.345606+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:22.314168+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:30.281415+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:37.892089+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:45.734077+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:12:53.668983+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 62,
+          "data": "Fresh"
+        },
+        {
+          "at": "2026-09-30T14:13:01.562365+00:00",
+          "ok": true,
+          "ping": true,
+          "ms": 63,
+          "data": "Fresh"
+        }
+      ],
+      "last_ok_at": "2026-09-30T14:13:01.562365+00:00",
+      "last_ok_epoch": 1790777582.2227263,
+      "observed_at": "2026-09-30T14:13:01.562365+00:00",
+      "ping_error": "",
+      "received_count": 23,
+      "sys_descr": "ESP8266 Local Monitoring Logger",
+      "snmp_ms": 63,
+      "identity_mismatch": false,
+      "elapsed_ms": 656,
+      "last_ok_age": 6.2,
+      "duplicate_mac": false
+    }
+  ],
+  "counts": {
+    "total": 1,
+    "responding": 1,
+    "fresh": 1,
+    "attention": 0
+  }
+}

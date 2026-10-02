@@ -1,0 +1,14 @@
+{
+  "firmware": "SNMP_SITE_RECOVERY_20260930_R2",
+  "port": "COM3",
+  "chip_id": "0x005CDECC",
+  "factory_mac": "24:4C:AB:5C:DE:CC",
+  "firmware_sha256": "0A3044DA5196DF597B6D9E15413AB73E91D4437D49F88DDA75E3DA6B7F436F27",
+  "esptool_write_hash_verified": true,
+  "settings_sector_identical": true,
+  "saved_static_ip": "192.168.2.1",
+  "saved_mask": "255.255.255.0",
+  "saved_gateway": "192.168.2.10",
+  "left_in_bootloader": false,
+  "runtime_verified": true
+}

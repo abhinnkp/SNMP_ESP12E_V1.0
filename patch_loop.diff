@@ -1,0 +1,28 @@
+--- src/main.cpp
++++ src/main.cpp
+@@ -1429,4 +1429,22 @@
+     bool linkLost = gEthernetLinkDownSinceMs &&
+       (unsigned long)(millis() - gEthernetLinkDownSinceMs) >= ETHERNET_LINK_DOWN_GRACE_MS;
+-    if (Ethernet.localIP() == IPAddress(0,0,0,0) || linkLost || Ethernet.hardwareFault()) {
+-      gLastNetworkFault = Ethernet.hardwareFault() ? Ethernet.hardwareFaultReason() : (linkLost ? 6 : 7);
++
++    bool isStalled = false;
++    if (gEthernetReady && link == LinkON && Ethernet.localIP() != IPAddress(0,0,0,0) && (int32_t)(millis() - gNextActiveProbeMs) >= 0) {
++      gNextActiveProbeMs = millis() + 60000UL;
++      uint32_t txFailuresDelta = Ethernet.transmitFailures() - gLastTxFailures;
++      uint32_t udpTimeoutsDelta = Ethernet.udpSendTimeouts() - gLastUdpTimeouts;
++      gLastTxFailures = Ethernet.transmitFailures();
++      gLastUdpTimeouts = Ethernet.udpSendTimeouts();
++
++      bool gatewayProbeSuccess = Ethernet.resolveGateway();
++
++      if (!gatewayProbeSuccess || txFailuresDelta > 0 || udpTimeoutsDelta > 0) {
++        gActiveProbeFailures++;
++        if (gActiveProbeFailures >= 3) isStalled = true;
++      } else {
++        gActiveProbeFailures = 0;
++      }
++    }
++
++    if (Ethernet.localIP() == IPAddress(0,0,0,0) || linkLost || Ethernet.hardwareFault() || isStalled) {
++      gLastNetworkFault = Ethernet.hardwareFault() ? Ethernet.hardwareFaultReason() : (linkLost ? 6 : (isStalled ? 8 : 7));

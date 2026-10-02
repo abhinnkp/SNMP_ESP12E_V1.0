@@ -1,0 +1,9 @@
+tools/
+lib/
+tests/
+src/
+*.bat
+*.bin
+*.html
+*.ini
+.pio/

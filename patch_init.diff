@@ -1,0 +1,9 @@
+--- src/main.cpp
++++ src/main.cpp
+@@ -1406,2 +1406,6 @@
+       DBG("Ethernet setup page: http://"); DBGLN(gDeviceIP);
++      gLastTxFailures = Ethernet.transmitFailures();
++      gLastUdpTimeouts = Ethernet.udpSendTimeouts();
++      gNextActiveProbeMs = millis() + 60000UL;
++      gActiveProbeFailures = 0;
+     }
