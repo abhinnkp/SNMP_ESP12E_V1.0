@@ -1,6 +1,0 @@
---- src/main.cpp
-+++ src/main.cpp
-@@ -1451,2 +1451,3 @@
-     if (Ethernet.localIP() == IPAddress(0,0,0,0) || linkLost || Ethernet.hardwareFault() || isStalled) {
-+      gLastNetworkFault = Ethernet.hardwareFault() ? Ethernet.hardwareFaultReason() : (linkLost ? 6 : (isStalled ? 8 : 7));
-       DBGLN("Ethernet address/link lost, restarting network");

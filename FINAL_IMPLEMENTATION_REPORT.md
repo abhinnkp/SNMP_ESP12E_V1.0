@@ -1,60 +1,69 @@
-# Final Implementation Report: Production Firmware Hardening
+# Final Implementation Report: Production Firmware Hardening (R3)
 
-## A. Modified files
-- `src/main.cpp`
-- `tests/test_network_recovery_native.py`
+## A. Corrected Implementation Summary
+The stall detection logic has been reworked strictly per instructions. `resolveGateway()` is treated solely as an active ARP probe, **not** as conclusive proof of failure if it returns `false`. If the driver is busy constructing a packet and returns `false`, we simply retry sooner (`5000UL`) without penalizing the device. `gActiveProbeFailures` only increments when `txFailuresDelta > 0` or `udpTimeoutsDelta > 0`, confirming actual underlying transmission errors across the delta check. If the counters remain stable, the health check explicitly resets the failure count (`gActiveProbeFailures = 0`), meaning a truly idle network correctly stays running forever without unnecessary recoveries. The recovery logic falls through cleanly into the pre-existing block without rebooting the ESP.
 
-## B. Exact logic added
-1. **Activity/Stall Tracking Variables**:
-   Introduced variables to establish a cumulative baseline: `gLastTxFailures`, `gLastUdpTimeouts`, `gNextActiveProbeMs`, and `gActiveProbeFailures`.
-2. **Re-Baselining**:
-   Inside `startEthernet()`, when `gEthernetReady` is true, initialized the baselines based on the current state of `Ethernet.transmitFailures()` and `Ethernet.udpSendTimeouts()`.
-3. **Stall Detection Loop**:
-   Inside the `LinkON` check in `loop()`, added logic to periodically (every 60 seconds) verify the driver health via deltas:
-   - Evaluated `txFailuresDelta = Ethernet.transmitFailures() - gLastTxFailures`
-   - Evaluated `udpTimeoutsDelta = Ethernet.udpSendTimeouts() - gLastUdpTimeouts`
-   - Requested a gateway ARP probe: `bool gatewayProbeSuccess = Ethernet.resolveGateway()`
-   - If the active probe failed (or if the TX/UDP failure deltas increased), the counter `gActiveProbeFailures` increments. If it hits 3 consecutive fails, we flag `isStalled = true`.
-4. **Soft Recovery execution**:
-   Added `isStalled` to the existing recovery if-statement. Re-uses the *exact* existing recovery `gEthernetReady = false` flow without restarting the ESP. Logs a specific fault code `8` mapped back into `gLastNetworkFault` for accurate JSON diagnostics.
+## B. Exact Source Changes
+**FILE:** `src/main.cpp`
+```cpp
+    bool isStalled = false;
+    if (gEthernetReady && link == LinkON && Ethernet.localIP() != IPAddress(0,0,0,0) && (int32_t)(millis() - gNextActiveProbeMs) >= 0) {
+      gNextActiveProbeMs = millis() + 60000UL;
+      uint32_t txFailuresDelta = Ethernet.transmitFailures() - gLastTxFailures;
+      uint32_t udpTimeoutsDelta = Ethernet.udpSendTimeouts() - gLastUdpTimeouts;
+      gLastTxFailures = Ethernet.transmitFailures();
+      gLastUdpTimeouts = Ethernet.udpSendTimeouts();
 
-## C. EthernetENC semantics verified
-- `transmitFailures()` and `udpSendTimeouts()` are purely cumulative across the lifetime of the ESP. Reinitializing SPI doesn't clear them, necessitating the `gLast...` deltas logic.
-- `receiveOverflows()` triggers `EIR_RXERIF` gracefully into a `hardwareFault() == 5`, effectively recovering itself, so it doesn't need to be modeled directly in the stall detection.
-- `resolveGateway()` executes a fast ARP packet. It fails securely (returning false) if the internal driver buffer (`in_packet != NOBLOCK`) is busy or the link is bad, making consecutive failures combined with actual metric faults highly accurate.
+      bool gatewayProbeSuccess = Ethernet.resolveGateway();
 
-## D. Threshold rationale
-- A single failure (ARP missed, TX collision) is ignored. The threshold is defined as **3 repeated failures on 60-second intervals**. This provides ~3 minutes of absolute silent lockup evidence or escalating TX failures before triggering a recovery, ensuring idle functionality operates flawlessly without unnecessary SPI soft resets.
+      if (txFailuresDelta > 0 || udpTimeoutsDelta > 0) {
+        gActiveProbeFailures++;
+        if (gActiveProbeFailures >= 3) isStalled = true;
+      } else if (!gatewayProbeSuccess) {
+        gNextActiveProbeMs = millis() + 5000UL;
+      } else {
+        gActiveProbeFailures = 0;
+      }
+    }
 
-## E. Existing functionality confirmed preserved
-- Wi-Fi AP provisioning untouched.
-- `platformio.ini` environment unchanged.
-- Native regression strings passed (all prior tests pass, confirming no protocol behavior changed).
+    if (Ethernet.localIP() == IPAddress(0,0,0,0) || linkLost || Ethernet.hardwareFault() || isStalled) {
+      gLastNetworkFault = Ethernet.hardwareFault() ? Ethernet.hardwareFaultReason() : (linkLost ? 6 : (isStalled ? 8 : 7));
+```
 
-## F. Native test results
-All 16 cases of `test_network_recovery_native.py` passed, successfully modeling timeouts, ARP responses, UDP tx failure conditions, and idle gaps properly.
+**FILE:** `tests/test_network_recovery_native.py`
+Updated `stall_logic_*` checks to mirror C logic explicitly, handling the busy driver edge case correctly. Added stateful multi-cycle tests (`stall_logic_persistent_tx_fail` and `stall_logic_transient_tx_fail`) ensuring exactly 3 consecutive fails are required to trigger an actual stall reset.
 
-## G. New health-logic test results
-Added native test paths covering the 5 bounded states (idle, active, tx_fail, udp_fail, arp_fail). Validated the logic exclusively passes idle/active sequences, and correctly escalates failures to trigger the stall detection `(failed)` flag.
+## C. Test Results
+- `test_stall_logic_idle` ... ok
+- `test_stall_logic_active` ... ok
+- `test_stall_logic_arp_fail` ... ok
+- `test_stall_logic_tx_fail` ... ok
+- `test_stall_logic_udp_fail` ... ok
+- `test_stall_logic_persistent_tx_fail` ... ok
+- `test_stall_logic_transient_tx_fail` ... ok
+- ALL 21 ARP & packet test variants ... ok
+- PlatformIO Compilation ... SUCCESS
 
-## H. Build result
-SUCCESS (esp12e_nodemcu_115200)
+## D. Hardware Validation Status
+PENDING. Required real-world testing:
+1. Normal long-duration operation / idle soak.
+2. Switch port disable/enable.
+3. Gateway unavailable while physical link remains UP.
+4. Repeated network interruption/recovery.
+5. Concurrent Modbus + SNMP + TCP traffic.
 
-## I. BIN filename
+## E. Exact BIN filename
 `ETPL_SNMP_SITE_RECOVERY_20260930_R3.bin`
 
-## J. BIN size
-353723 bytes
+## F. BIN size
+353707 bytes
 
-## K. SHA-256
-`e5d5069fca51c3103d88674beb5587112e8ed1ca958df5d634103895cc3290b9`
+## G. SHA-256
+`cbbe51f3876a0951d71794974018362e3a9d87ac24e89d926cf49e226e757f2c`
 
-## L. Any unresolved limitations
-- Because no hardware ENC28J60 reset pin exists, if the chip experiences a complete hardware latch-up unresponsive to SPI instructions (`CS` toggle), the soft reset logic may not clear it (as noted by `faultReason = 1`). Hardware testing will clarify if SPI resets suffice.
+## H. Unresolved limitations
+- **No hardware reset pin:** Because no hardware ENC28J60 reset pin exists, if the chip experiences a complete hardware latch-up unresponsive to SPI instructions (`CS` toggle), the soft reset logic may not clear it (as noted by `faultReason = 1`). Hardware testing will clarify if SPI resets suffice.
 
-## M. Hardware tests still required
-1. Normal continuous operation.
-2. Long-duration soak test to verify idle networks do not randomly reboot.
-3. Switch port disable/enable (simulating link transition).
-4. Physical network stall (disconnecting gateway router without dropping the local switch link).
-5. Simultaneous Modbus + SNMP/TCP activity stress test to verify the bounded 60-sec probe doesn't choke normal packets.
+## I. Original Silent LINK-UP Failure Detection
+**PARTIALLY DETECTED (LIMITATION NOTED).**
+If the switch *silently* drops packets (MAC aging timeout) but the ENC28J60 successfully transmits the electrical signals without collision (`txFailures` does not increment), the device *cannot* conclusively detect the failure using TX failure counters alone. `resolveGateway()` will successfully enqueue the ARP packet, and `txFailuresDelta` will be `0`. Since there's no end-to-end response validation in this low-level loop (as EthernetENC is layer 2/3), the system will incorrectly think the network is healthy. This represents a fundamental limitation of relying strictly on MAC-layer failure counters when dealing with silent upstream switch issues.
