@@ -1,8 +1,8 @@
-tools/
-lib/
-tests/
-src/
-*.bat
-*.bin
-*.html
-*.ini
+.pio
+results
+output.txt
+test_out.txt
+ETPL_SNMP_SITE_RECOVERY_20260930_R3.bin
+*.diff
+*.orig
+__pycache__
